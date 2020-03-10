@@ -47,8 +47,53 @@ module "dummy-app-monitor" {
 1. This module does not create a notification channel. Use the [newrelic_alert_channel](https://www.terraform.io/docs/providers/newrelic/r/alert_channel.html) resource for this.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Providers
+
+| Name | Version |
+|------|---------|
+| newrelic | ~> 1.9.0 |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:-----:|
+| account\_id | The account ID the application reports to | `number` | n/a | yes |
+| apdex\_critical\_threshold | The threshold below which a critical violation will be triggered for the Apdex condition (percentage satisfied users) | `number` | `0.7` | no |
+| apdex\_duration | The evaluation window length of the Apdex condition (minutes) | `number` | `5` | no |
+| apdex\_t | The response time above which a transaction is considered tolerable | `number` | `0.4` | no |
+| apdex\_warning\_threshold | The threshold below which a warning violation will be triggered for the Apdex condition (percentage satisfied users) | `number` | `0.8` | no |
+| application\_name | The name of the New Relic application to monitor | `string` | n/a | yes |
+| application\_url | The URL to use when configuring a Synthetics monitor for this application | `string` | n/a | yes |
+| channel\_ids | The notification channel IDs to link to this alert policy | `list(number)` | n/a | yes |
+| error\_rate\_critical\_threshold | The threshold above which a critical violation will be triggered for the error rate condition (errors/minute) | `number` | `5` | no |
+| error\_rate\_duration | The evaluation window length of the error rate condition (minutes) | `number` | `5` | no |
+| error\_rate\_warning\_threshold | The threshold above which a warning violation will be triggered for the error rate condition (errors/minute) | `number` | `2` | no |
+| incident\_preference | The rollup strategy of the alert policy.  Valid values are PER\_POLICY, PER\_CONDITION, and PER\_CONDITION\_AND\_TARGET | `string` | `"PER_POLICY"` | no |
+| policy\_name | The name of the alert policy to manage | `string` | n/a | yes |
+| response\_time\_critical\_threshold | The threshold above which a critical violation will be triggered for the response time condition (seconds) | `number` | n/a | yes |
+| response\_time\_duration | The evaluation window length of the error rate condition (minutes) | `number` | `5` | no |
+| response\_time\_warning\_threshold | The threshold above which a warning violation will be triggered for the response time condition (seconds) | `number` | `1` | no |
+| runbook\_url | A URL that points to a runbook for when this application is failing | `string` | n/a | yes |
+| synthetics\_condition\_duration | The evaluation window length of the Synthetics condition (minutes) | `number` | `5` | no |
+| synthetics\_condition\_threshold | The threshold above which a critical violation will be triggered for the Synthetics condition (failure count) | `number` | `0` | no |
+| synthetics\_monitor\_frequency | The interval on which to run Synthetics checks against the provided application URL | `number` | `5` | no |
+| synthetics\_monitor\_locations | The locations to run Synthetics checks from | `list(string)` | <pre>[<br>  "AWS_US_EAST_1"<br>]</pre> | no |
+| synthetics\_monitor\_validation\_string | An optional string to check existence of when running Synthetics checks | `string` | n/a | yes |
+| synthetics\_monitor\_verify\_ssl | If true, verifies SSL when running Synthetics checks | `bool` | `false` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| apdex\_condition\_id | n/a |
+| error\_rate\_condition\_id | n/a |
+| policy\_id | n/a |
+| reponse\_time\_condition\_id | n/a |
+| synthetics\_condition\_id | n/a |
+| synthetics\_monitor\_id | n/a |
+
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## License
 
-MIT Licensed. See LICENSE for full details.
+Apache 2.0 Licensed. See LICENSE for full details.
