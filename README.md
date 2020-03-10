@@ -18,27 +18,32 @@ Terraform 0.12 is required.
 ## Usage
 
 ```hcl
+data "newrelic_alert_channel" "pager" {
+    name = "Page Developer Toolkit Team"
+}
+
 module "dummy-app-monitor" {
-    source = "newrelic/apm"
+    source = "newrelic/apm/newrelic"
 
     account_id = 2520528
     application_name = "Dummy App"
 
+    # An Apdex alert condition will be created with sensible defaults without the use of these attributes.
     apdex_warning_threshold = 0.9
     apdex_critical_threshold = 0.8
 
+    # An error rate alert condition will be created with sensible defaults without the use of these attributes.
     error_rate_warning_threshold = 5
     error_rate_critical_threshold = 10
 
-    # Specifying an application URL will provision a Synthetics monitor and associated alert condition
+    # Specifying an application URL will provision a Synthetics monitor and associated alert condition.
     application_url = "https://www.dummyapp.com"
     synthetics_monitor_verify_ssl = true
 
-    # Response time alert condition will not be provisioned unless a critical violation threshold is specified
+    # Response time alert condition will not be provisioned unless a critical violation threshold is specified.
     response_time_critical_threshold = 3
 
-    # The HCL here references a notification channel that has been previously provisioned
-    channel_ids = [newrelic_alert_channel.pager.id]
+    channel_ids = [data.newrelic_alert_channel.pager.id]
 }
 ```
 
@@ -85,12 +90,12 @@ module "dummy-app-monitor" {
 
 | Name | Description |
 |------|-------------|
-| apdex\_condition\_id | n/a |
-| error\_rate\_condition\_id | n/a |
-| policy\_id | n/a |
-| reponse\_time\_condition\_id | n/a |
-| synthetics\_condition\_id | n/a |
-| synthetics\_monitor\_id | n/a |
+| apdex\_condition\_id | The ID of the provisioned Apdex condition. |
+| error\_rate\_condition\_id | The ID of the provisioned error rate condition. |
+| policy\_id | The ID of the provisioned alert policy. |
+| reponse\_time\_condition\_id | The ID of the provisioned response time condition. |
+| synthetics\_condition\_id | The ID of the provisioned Synthetics condition. |
+| synthetics\_monitor\_id | The ID of the provisioned Synthetics monitor. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
