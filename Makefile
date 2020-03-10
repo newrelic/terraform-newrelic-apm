@@ -1,4 +1,12 @@
-.PHONY: changelog release
+#############################
+# Global vars
+#############################
+PROJECT_NAME := $(shell basename $(shell pwd))
 
-changelog:
-	git-chglog -o CHANGELOG.md $(version)
+RELEASE_SCRIPT ?= ./scripts/release.sh
+
+release:
+	@echo "=== $(PROJECT_NAME) === [ release          ]: Generating release."
+	$(RELEASE_SCRIPT) $(version)
+
+.PHONY: release
