@@ -1,11 +1,11 @@
 locals {
-    policy_name = var.policy_name == null ? "${var.application_name}: APM Monitoring" : var.policy_name
+  policy_name = var.policy_name == null ? "${var.application_name}: APM Monitoring" : var.policy_name
 }
 
 resource "newrelic_alert_policy" "policy" {
-  name = local.policy_name
+  name                = local.policy_name
   incident_preference = var.incident_preference
-  channel_ids = var.channel_ids
+  channel_ids         = var.channel_ids
 }
 
 resource "newrelic_nrql_alert_condition" "apdex_condition" {
@@ -75,15 +75,15 @@ resource "newrelic_nrql_alert_condition" "error_rate_condition" {
 resource "newrelic_synthetics_monitor" "synthetics_monitor" {
   count = var.application_url == null ? 0 : 1
 
-  name = "${var.application_name}: SIMPLE"
-  type = "SIMPLE"
+  name      = "${var.application_name}: SIMPLE"
+  type      = "SIMPLE"
   frequency = var.synthetics_monitor_frequency
-  status = "ENABLED"
+  status    = "ENABLED"
   locations = var.synthetics_monitor_locations
 
-  uri                       = var.application_url
-  validation_string         = var.synthetics_monitor_validation_string
-  verify_ssl                = var.synthetics_monitor_verify_ssl
+  uri               = var.application_url
+  validation_string = var.synthetics_monitor_validation_string
+  verify_ssl        = var.synthetics_monitor_verify_ssl
 }
 
 
