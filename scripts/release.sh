@@ -33,6 +33,6 @@ git checkout -b release/v${RELEASE_VERSION}
 git-chglog --next-tag v${RELEASE_VERSION} -o CHANGELOG.md
 
 # Commit CHANGELOG updates
-git add CHANGELOG.md internal/version/version.go
+git add CHANGELOG.md
 git commit -m "chore(changelog): Update CHANGELOG for v${RELEASE_VERSION}"
 git push origin release/v${RELEASE_VERSION}
