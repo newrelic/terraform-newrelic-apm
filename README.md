@@ -56,7 +56,7 @@ module "dummy-app-monitor" {
 
 | Name | Version |
 |------|---------|
-| newrelic | ~> 1.9.0 |
+| newrelic | >= 1.15.1 |
 
 ## Inputs
 
