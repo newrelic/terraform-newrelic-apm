@@ -1,3 +1,5 @@
+[![Community Project header](https://github.com/newrelic/open-source-office/raw/master/examples/categories/images/Community_Project.png)](https://github.com/newrelic/open-source-office/blob/master/examples/categories/index.md#category-community-project)
+
 # New Relic APM Terraform module
 
 Terraform module which creates a monitoring strategy for application resources reporting into New Relic.
@@ -101,4 +103,4 @@ module "dummy-app-monitor" {
 
 ## License
 
-Apache 2.0 Licensed. See LICENSE for full details.
+Apache 2.0 Licensed. See [LICENSE](https://github.com/newrelic/terraform-newrelic-apm/edit/master/LICENSE) for full details.
