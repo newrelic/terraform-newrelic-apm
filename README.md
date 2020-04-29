@@ -101,6 +101,14 @@ module "dummy-app-monitor" {
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
+## Community Support
+
+New Relic hosts and moderates an online forum where you can interact with New Relic employees as well as other customers to get help and share best practices. Like all New Relic open source community projects, there's a related topic in the New Relic Explorers Hub. You can find this project's topic/threads here:
+
+[https://discuss.newrelic.com/t/new-relic-terraform-provider-1-16-0/98241](https://discuss.newrelic.com/t/new-relic-terraform-provider-1-16-0/98241)
+
+Please do not report issues with this project to New Relic Global Technical Support. Instead, visit the [`Explorers Hub`](https://discuss.newrelic.com/t/new-relic-terraform-provider-1-16-0/98241) for troubleshooting and best-practices.
+
 ## License
 
-Apache 2.0 Licensed. See [LICENSE](https://github.com/newrelic/terraform-newrelic-apm/edit/master/LICENSE) for full details.
+Apache 2.0 Licensed. See [LICENSE](https://github.com/newrelic/terraform-newrelic-apm/blob/master/LICENSE) for full details.
