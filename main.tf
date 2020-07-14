@@ -16,28 +16,27 @@ resource "newrelic_nrql_alert_condition" "apdex_condition" {
   runbook_url = var.runbook_url
   enabled     = true
 
-  term {
-    duration      = var.apdex_duration
-    operator      = "below"
-    priority      = "warning"
-    threshold     = var.apdex_warning_threshold
-    time_function = "all"
+  warning {
+    operator              = "below"
+    threshold             = var.apdex_warning_threshold
+    threshold_duration    = var.apdex_duration
+    threshold_occurrences = "ALL"
   }
 
-  term {
-    duration      = var.apdex_duration
-    operator      = "below"
-    priority      = "critical"
-    threshold     = var.apdex_critical_threshold
-    time_function = "all"
+  critical {
+    operator              = "below"
+    threshold             = var.apdex_critical_threshold
+    threshold_duration    = var.apdex_duration
+    threshold_occurrences = "ALL"
   }
 
   nrql {
-    query       = "SELECT apdex(duration, t: ${var.apdex_t}) FROM Transaction WHERE appName = '${var.application_name}' AND accountId = ${var.account_id}"
-    since_value = "3"
+    query             = "SELECT apdex(duration, t: ${var.apdex_t}) FROM Transaction WHERE appName = '${var.application_name}' AND accountId = ${var.account_id}"
+    evaluation_offset = 3
   }
 
   value_function = "single_value"
+  violation_time_limit = "ONE_HOUR"
 }
 
 resource "newrelic_nrql_alert_condition" "error_rate_condition" {
@@ -48,28 +47,27 @@ resource "newrelic_nrql_alert_condition" "error_rate_condition" {
   runbook_url = var.runbook_url
   enabled     = true
 
-  term {
-    duration      = var.error_rate_duration
-    operator      = "above"
-    priority      = "warning"
-    threshold     = var.error_rate_warning_threshold
-    time_function = "all"
+  critical {
+    operator              = "above"
+    threshold             = var.error_rate_critical_threshold
+    threshold_duration    = var.error_rate_duration
+    threshold_occurrences = "ALL"
   }
 
-  term {
-    duration      = var.error_rate_duration
-    operator      = "above"
-    priority      = "critical"
-    threshold     = var.error_rate_critical_threshold
-    time_function = "all"
+  warning {
+    operator              = "above"
+    threshold             = var.error_rate_warning_threshold
+    threshold_duration    = var.error_rate_duration
+    threshold_occurrences = "ALL"
   }
 
   nrql {
-    query       = "SELECT percentage(count(*), WHERE error IS TRUE) FROM Transaction WHERE appName = '${var.application_name}' AND accountId = ${var.account_id}"
-    since_value = "3"
+    query             = "SELECT percentage(count(*), WHERE error IS TRUE) FROM Transaction WHERE appName = '${var.application_name}' AND accountId = ${var.account_id}"
+    evaluation_offset = 3
   }
 
-  value_function = "single_value"
+  value_function       = "single_value"
+  violation_time_limit = "ONE_HOUR"
 }
 
 resource "newrelic_synthetics_monitor" "synthetics_monitor" {
@@ -97,20 +95,20 @@ resource "newrelic_nrql_alert_condition" "synthetics_condition" {
   runbook_url = var.runbook_url
   enabled     = true
 
-  term {
-    duration      = var.synthetics_condition_duration
-    operator      = "above"
-    priority      = "critical"
-    threshold     = var.synthetics_condition_threshold
-    time_function = "all"
+  critical {
+    operator              = "above"
+    threshold             = var.synthetics_condition_threshold
+    threshold_duration    = var.synthetics_condition_duration
+    threshold_occurrences = "ALL"
   }
 
   nrql {
-    query       = "SELECT count(*) FROM SyntheticCheck WHERE result != 'SUCCESS' WHERE monitorId = '${newrelic_synthetics_monitor.synthetics_monitor[0].id}'"
-    since_value = "3"
+    query             = "SELECT count(*) FROM SyntheticCheck WHERE result != 'SUCCESS' WHERE monitorId = '${newrelic_synthetics_monitor.synthetics_monitor[0].id}'"
+    evaluation_offset = 3
   }
 
-  value_function = "single_value"
+  value_function       = "single_value"
+  violation_time_limit = "ONE_HOUR"
 }
 
 resource "newrelic_nrql_alert_condition" "response_time_condition" {
@@ -123,26 +121,25 @@ resource "newrelic_nrql_alert_condition" "response_time_condition" {
   runbook_url = var.runbook_url
   enabled     = true
 
-  term {
-    duration      = var.response_time_duration
-    operator      = "above"
-    priority      = "warning"
-    threshold     = var.response_time_warning_threshold
-    time_function = "all"
+  warning {
+    operator              = "above"
+    threshold             = var.response_time_warning_threshold
+    threshold_duration    = var.response_time_duration
+    threshold_occurrences = "ALL"
   }
 
-  term {
-    duration      = var.response_time_duration
-    operator      = "above"
-    priority      = "critical"
-    threshold     = var.response_time_critical_threshold
-    time_function = "all"
+  critical {
+    operator              = "above"
+    threshold             = var.response_time_critical_threshold
+    threshold_duration    = var.response_time_duration
+    threshold_occurrences = "ALL"
   }
 
   nrql {
-    query       = "SELECT average(duration) FROM Transaction WHERE appName = '${var.application_name}' AND accountId = ${var.account_id}"
-    since_value = "3"
+    query             = "SELECT average(duration) FROM Transaction WHERE appName = '${var.application_name}' AND accountId = ${var.account_id}"
+    evaluation_offset = 3
   }
 
-  value_function = "single_value"
+  value_function       = "single_value"
+  violation_time_limit = "ONE_HOUR"
 }

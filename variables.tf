@@ -45,9 +45,9 @@ variable "apdex_critical_threshold" {
 }
 
 variable "apdex_duration" {
-  description = "The evaluation window length of the Apdex condition (minutes)"
+  description = "The evaluation window length of the Apdex condition (seconds). Value must be a multiple of 60 and within 120-3600 seconds for baseline conditions and 120-7200 seconds for static conditions."
   type        = number
-  default     = 5
+  default     = 300
 }
 
 variable "apdex_t" {
@@ -69,9 +69,9 @@ variable "error_rate_critical_threshold" {
 }
 
 variable "error_rate_duration" {
-  description = "The evaluation window length of the error rate condition (minutes)"
+  description = "The evaluation window length of the error rate condition (seconds). Value must be a multiple of 60 and within 120-3600 seconds for baseline conditions and 120-7200 seconds for static conditions."
   type        = number
-  default     = 5
+  default     = 300
 }
 
 variable "application_url" {
@@ -111,9 +111,9 @@ variable "synthetics_condition_threshold" {
 }
 
 variable "synthetics_condition_duration" {
-  description = "The evaluation window length of the Synthetics condition (minutes)"
+  description = "The evaluation window length of the Synthetics condition (seconds). Value must be a multiple of 60 and within 120-3600 seconds for baseline conditions and 120-7200 seconds for static conditions."
   type        = number
-  default     = 5
+  default     = 300
 }
 
 variable "response_time_warning_threshold" {
